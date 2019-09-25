@@ -9,6 +9,7 @@
 
 [![](https://jitpack.io/v/jungu009/SimpleThreadPool.svg)](https://jitpack.io/#jungu009/SimpleThreadPool)
 
+1. 导入库
 ```gradle
   allprojects {
 		repositories {
@@ -20,5 +21,23 @@
   dependencies {
 	        implementation 'com.github.jungu009:SimpleThreadPool:Tag'
 	}
+```
+2. 示例代码
+
+```java
+ Future future = DefaultExecutorSupplier.getInstance().forBackgroundTasks().submit(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+        future.cancel(true);
+
+        DefaultExecutorSupplier.getInstance().forBackgroundTasks().execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
 ```
 

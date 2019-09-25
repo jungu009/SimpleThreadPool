@@ -1,0 +1,2 @@
+include ':simplethreadpool', ':example'
+rootProject.name='SimpleThreadPool'

@@ -10,6 +10,7 @@
 [![](https://jitpack.io/v/jungu009/SimpleThreadPool.svg)](https://jitpack.io/#jungu009/SimpleThreadPool)
 
 1. 导入库
+Gradle
 ```gradle
         allprojects {
 		repositories {
@@ -22,6 +23,7 @@
 	        implementation 'com.github.jungu009:SimpleThreadPool:v0.2'
 	}
 ```
+Maven
 ```maven
         <repositories>
 		<repository>

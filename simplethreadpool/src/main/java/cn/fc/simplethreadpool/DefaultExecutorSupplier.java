@@ -20,7 +20,7 @@ public class DefaultExecutorSupplier {
     /*
      * thread pool executor for background tasks
      */
-    private final ThreadPoolExecutor mForBackgroundTasks;
+    private final PriorityThreadPoolExecutor mForBackgroundTasks;
     /*
      * thread pool executor for light weight background tasks
      */
@@ -56,12 +56,11 @@ public class DefaultExecutorSupplier {
                 PriorityThreadFactory(Process.THREAD_PRIORITY_BACKGROUND);
 
         // setting the thread pool executor for mForBackgroundTasks;
-        mForBackgroundTasks = new ThreadPoolExecutor(
+        mForBackgroundTasks = new PriorityThreadPoolExecutor(
                 NUMBER_OF_CORES * 2,
                 NUMBER_OF_CORES * 2,
                 60L,
                 TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>(),
                 backgroundPriorityThreadFactory
         );
 

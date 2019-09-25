@@ -7,6 +7,8 @@ import android.os.Bundle;
 import java.util.concurrent.Future;
 
 import cn.fc.simplethreadpool.DefaultExecutorSupplier;
+import cn.fc.simplethreadpool.Priority;
+import cn.fc.simplethreadpool.PriorityRunnable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,5 +31,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        doSomeTaskAtHighPriority();
     }
+
+
+    /*
+     * do some task at high priority
+     */
+    public void doSomeTaskAtHighPriority(){
+        DefaultExecutorSupplier.getInstance().forBackgroundTasks()
+                .submit(new PriorityRunnable(Priority.HIGH) {
+                    @Override
+                    public void run() {
+                        // do some background work here at high priority.
+                    }
+                });
+    }
+
 }

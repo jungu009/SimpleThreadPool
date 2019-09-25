@@ -11,33 +11,45 @@
 
 1. 导入库
 ```gradle
-  allprojects {
+        allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
 	}
   
-  dependencies {
-	        implementation 'com.github.jungu009:SimpleThreadPool:Tag'
+        dependencies {
+	        implementation 'com.github.jungu009:SimpleThreadPool:v0.2'
 	}
 ```
+```maven
+        <repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	
+	<dependency>
+	    <groupId>com.github.jungu009</groupId>
+	    <artifactId>SimpleThreadPool</artifactId>
+	    <version>v0.2</version>
+	</dependency>
+```
+
 2. 示例代码
 
 ```java
- Future future = DefaultExecutorSupplier.getInstance().forBackgroundTasks().submit(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-        future.cancel(true);
-
-        DefaultExecutorSupplier.getInstance().forBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
+    /*
+     * do some task at high priority
+     */
+    public void doSomeTaskAtHighPriority(){
+        DefaultExecutorSupplier.getInstance().forBackgroundTasks()
+                .submit(new PriorityRunnable(Priority.HIGH) {
+                    @Override
+                    public void run() {
+                        // do some background work here at high priority.
+                    }
+                });
+    }
 ```
-

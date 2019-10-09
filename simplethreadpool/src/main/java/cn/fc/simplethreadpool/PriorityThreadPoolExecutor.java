@@ -1,5 +1,7 @@
 package cn.fc.simplethreadpool;
 
+import androidx.annotation.NonNull;
+
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -7,15 +9,23 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 带优先级的线程池
+ */
 public class PriorityThreadPoolExecutor extends ThreadPoolExecutor {
 
-    public PriorityThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,
-                                      TimeUnit unit, ThreadFactory threadFactory) {
+    PriorityThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,
+                               TimeUnit unit, ThreadFactory threadFactory) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit,new PriorityBlockingQueue<Runnable>(), threadFactory);
     }
 
+    /**
+     *
+     * @param task 要执行的任务
+     * @return 一个FutureTask
+     */
     @Override
-    public Future<?> submit(Runnable task) {
+    public @NonNull Future<?> submit(Runnable task) {
         PriorityFutureTask futureTask = new PriorityFutureTask((PriorityRunnable) task);
         execute(futureTask);
         return futureTask;
@@ -25,7 +35,7 @@ public class PriorityThreadPoolExecutor extends ThreadPoolExecutor {
             implements Comparable<PriorityFutureTask> {
         private final PriorityRunnable priorityRunnable;
 
-        public PriorityFutureTask(PriorityRunnable priorityRunnable) {
+        PriorityFutureTask(PriorityRunnable priorityRunnable) {
             super(priorityRunnable, null);
             this.priorityRunnable = priorityRunnable;
         }

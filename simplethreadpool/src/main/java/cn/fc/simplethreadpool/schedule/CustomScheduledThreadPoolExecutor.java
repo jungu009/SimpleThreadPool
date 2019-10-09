@@ -1,26 +1,17 @@
 package cn.fc.simplethreadpool.schedule;
 
-import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 对ScheduledThreadPoolExecutor进行封装
+ * 增加定时终止任务的功能
+ */
 public class CustomScheduledThreadPoolExecutor extends ScheduledThreadPoolExecutor {
-    public CustomScheduledThreadPoolExecutor(int corePoolSize) {
+
+    CustomScheduledThreadPoolExecutor(int corePoolSize) {
         super(corePoolSize);
-    }
-
-    public CustomScheduledThreadPoolExecutor(int corePoolSize, ThreadFactory threadFactory) {
-        super(corePoolSize, threadFactory);
-    }
-
-    public CustomScheduledThreadPoolExecutor(int corePoolSize, RejectedExecutionHandler handler) {
-        super(corePoolSize, handler);
-    }
-
-    public CustomScheduledThreadPoolExecutor(int corePoolSize, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
-        super(corePoolSize, threadFactory, handler);
     }
 
     /**

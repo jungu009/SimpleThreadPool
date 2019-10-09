@@ -2,12 +2,10 @@ package cn.fc.simplethreadpool;
 
 /**
  * Priority levels
+ * NOTE: DO NOT CHANGE ORDERING OF THOSE CONSTANTS UNDER ANY CIRCUMSTANCES.
+ * Doing so will make ordering incorrect.
  */
 public enum Priority {
-    /**
-     * NOTE: DO NOT CHANGE ORDERING OF THOSE CONSTANTS UNDER ANY CIRCUMSTANCES.
-     * Doing so will make ordering incorrect.
-     */
 
     /**
      * Lowest priority level. Used for prefetches of data.

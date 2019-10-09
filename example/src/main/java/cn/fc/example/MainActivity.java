@@ -1,20 +1,14 @@
 package cn.fc.example;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
+import androidx.appcompat.app.AppCompatActivity;
 
 import cn.fc.simplethreadpool.DefaultExecutorSupplier;
 import cn.fc.simplethreadpool.Priority;
 import cn.fc.simplethreadpool.PriorityRunnable;
+import cn.fc.simplethreadpool.schedule.EndRunnable;
 import cn.fc.simplethreadpool.schedule.ScheduleExecutorSupplier;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 普通的带有优先级的线程池
-        doSomeTaskAtHighPriority();
+//        doSomeTaskAtHighPriority();
 
         // 带有定时功能的线程池
         doScheduleTask();
@@ -38,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Log.d("Schedule", "schedule:" + i++);
+            }
+        }, new EndRunnable(){
+            @Override
+            protected void runTask() {
+                Log.d("Schedule", "任务结束");
             }
         }, 1000, 1000, 30);
 

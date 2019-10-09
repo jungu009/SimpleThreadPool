@@ -5,13 +5,15 @@
 
 参考：[Using ThreadPoolExecutor in Android](https://blog.mindorks.com/threadpoolexecutor-in-android-8e9d22330ee3)
 
+[API文档](https://jungu009.github.io/SimpleThreadPool/index.html)
+
 ### 如何使用
 
 [![](https://jitpack.io/v/jungu009/SimpleThreadPool.svg)](https://jitpack.io/#jungu009/SimpleThreadPool)
 
-1. 导入库
+#### 1. 导入库
 
-Gradle
+##### Gradle
 ```gradle
         allprojects {
 		repositories {
@@ -21,10 +23,10 @@ Gradle
 	}
   
         dependencies {
-	        implementation 'com.github.jungu009:SimpleThreadPool:v0.2'
+	        implementation 'com.github.jungu009:SimpleThreadPool:vX.X'
 	}
 ```
-Maven
+##### Maven
 ```maven
         <repositories>
 		<repository>
@@ -36,11 +38,11 @@ Maven
 	<dependency>
 	    <groupId>com.github.jungu009</groupId>
 	    <artifactId>SimpleThreadPool</artifactId>
-	    <version>v0.2</version>
+	    <version>vX.X</version>
 	</dependency>
 ```
 
-2. 示例代码
+#### 2. 示例代码
 
 ```java
     /*
@@ -55,4 +57,17 @@ Maven
                     }
                 });
     }
+    
+    /*
+     * 1s后开始执行任务，间隔1s执行一次，30s后结束任务
+     */
+    ScheduleExecutorSupplier.getInstance().forScheduledTask().schedule(new Runnable() {
+        int i = 0;
+        @Override
+        public void run() {
+            Log.d("Schedule", "schedule:" + i++);
+        }
+    }, 1000, 1000, 30);
+    
+    
 ```

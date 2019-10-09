@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import cn.fc.simplethreadpool.DefaultExecutorSupplier;
 import cn.fc.simplethreadpool.Priority;
 import cn.fc.simplethreadpool.PriorityRunnable;
+import cn.fc.simplethreadpool.schedule.CustomScheduledFuture;
 import cn.fc.simplethreadpool.schedule.EndRunnable;
 import cn.fc.simplethreadpool.schedule.ScheduleExecutorSupplier;
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doScheduleTask(){
-        ScheduleExecutorSupplier.getInstance().forScheduledTask().schedule(new Runnable() {
+        CustomScheduledFuture futures = ScheduleExecutorSupplier.getInstance().forScheduledTask().schedule(new Runnable() {
             int i = 0;
             @Override
             public void run() {
@@ -39,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Schedule", "任务结束");
             }
         }, 1000, 1000, 30);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        futures.cancelAllTask();
 
 //        Executors.newScheduledThreadPool(1).scheduleAtFixedRate(new Runnable() {
 //            int i = 0;

@@ -47,20 +47,27 @@ public class CustomScheduledThreadPoolExecutor extends ScheduledThreadPoolExecut
      * @param initialDelay 第一次执行的时间，什么时候开始执行  ms
      * @param period 执行频率  ms
      * @param dieout 定时时间 s
+     * @return 返回所有future 方便终止定时任务
      */
-    public void schedule(Runnable runnable, EndRunnable endRunnable,int initialDelay, int period, int dieout){
+    public CustomScheduledFuture schedule(Runnable runnable, EndRunnable endRunnable,int initialDelay, int period, int dieout){
+
+        CustomScheduledFuture cf = new CustomScheduledFuture();
+
         ScheduledFuture future = this.scheduleAtFixedRate(runnable,
                 initialDelay,
                 period,
                 TimeUnit.MILLISECONDS);
+        cf.addFuture(future);
 
-        startTimer(endRunnable, future, dieout);
+        cf.addFuture(startTimer(endRunnable, future, dieout));
+
+        return cf;
     }
 
 
-    private void startTimer(EndRunnable runnable, final ScheduledFuture future, int dieout){
+    private ScheduledFuture startTimer(EndRunnable runnable, final ScheduledFuture future, int dieout){
         runnable.setFuture(future);
-        this.schedule(runnable, dieout, TimeUnit.SECONDS);
+        return this.schedule(runnable, dieout, TimeUnit.SECONDS);
     }
 
 }
